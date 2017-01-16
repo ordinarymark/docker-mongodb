@@ -11,11 +11,14 @@ RUN \
 	apt-get update && \
 	apt-get install -y mongodb-org && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-	mkdir -p /data/db
+	mkdir -p /data/db && \
+	mkdir /etc/service/mongod
+
+ADD mongod.sh /etc/service/mongod/run
 
 EXPOSE 27017
 
-ENTRYPOINT ["/usr/bin/mongod"] 
+#ENTRYPOINT ["/usr/bin/mongod"] 
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
